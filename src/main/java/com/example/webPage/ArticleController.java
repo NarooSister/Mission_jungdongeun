@@ -49,5 +49,35 @@ public class ArticleController {
         model.addAttribute("article", articleService.read(id));
         return "article/articlePage";
     }
+    @GetMapping("{id}/edit")
+    public String articleEdit(
+            @PathVariable("id")
+            Long id,
+            Model model
+    ) {
+        model.addAttribute("article", articleService.read(id));
+        return "article/edit";
+    }
 
+    @PostMapping("{id}/update")
+    public String articleUpdate(
+            @PathVariable("id")
+            Long id,
+            @RequestParam("title")
+            String title,
+            @RequestParam("content")
+            String content
+    ) {
+        articleService.update(id, new ArticleDto(title, content));
+        return String.format("redirect:/article/%d", id);
+    }
+
+    @PostMapping("{id}/delete")
+    public String articleDelete(
+            @PathVariable("id")
+            Long id
+    ) {
+        articleService.delete(id);
+        return "redirect:/article";
+    }
 }

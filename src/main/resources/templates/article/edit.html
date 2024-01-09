@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edit</title>
+    <title th:text="${article.title}"></title>
 </head>
 <body>
-
+<div>
+<h1>Update: [[${article.title}]]</h1>
+<a th:href="@{/article/{id}(id=${article.id})}">Back</a>
+</div>
+<hr>
+<form th:action="@{/article/{id}/update(id=${article.id})}" method="post">
+    <div>
+        <label for="title-input">Title</label>
+        <input type="text" name="title" id="title-input" th:value="${article.title}">
+    </div>
+    <div>
+        <label for="content-area">Content</label>
+        <textarea name="content" id="content-area" cols="30" rows="10">[[${article.content}]]</textarea>
+    </div>
+    <div>
+        <label for="password-input">Password</label>
+        <input type="password" name="password" id="password-input" >
+    </div>
+    <input type="submit" value="Edit">
+</form>
 </body>
 </html>
