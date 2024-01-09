@@ -1,10 +1,10 @@
-package com.example.webPage.entity;
+package com.example.webPage;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
@@ -15,8 +15,6 @@ public class Article {
     private String title;
     private String content;
     private String password;
-    @OneToMany(mappedBy = "article")
-    private final List<Comment> comments = new ArrayList<>();
 
     public Article() {}
 

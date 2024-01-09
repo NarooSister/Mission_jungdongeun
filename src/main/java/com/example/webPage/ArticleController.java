@@ -1,6 +1,5 @@
 package com.example.webPage;
 
-import com.example.webPage.dto.ArticleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
