@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ArticleList</title>
+    <title th:text="${boardName} + ' 게시판'" >게시판</title>
 </head>
 <body>
 <div>
-    <h1>Article List</h1>
+    <h1 th:text="${boardName} + ' 게시판'">게시판</h1>
     <a href="article/write">Write</a>
 </div>
 <table>

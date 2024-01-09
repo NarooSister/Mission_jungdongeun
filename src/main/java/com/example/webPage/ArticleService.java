@@ -2,6 +2,7 @@ package com.example.webPage;
 
 import com.example.webPage.dto.ArticleDto;
 import com.example.webPage.entity.Article;
+import com.example.webPage.entity.Boards;
 import com.example.webPage.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArticleService {
     private final ArticleRepository articleRepository;
-
+    private final Bo boardsRepository;
     //CREATE
     public ArticleDto create(ArticleDto dto){
+        Boards boards = boardsRepository.findById(boardsId).orElseThrow();
         Article article = new Article(
-                dto.getTitle(), dto.getContent(), dto.getPassword()
+                dto.getTitle(), dto.getContent(), dto.getPassword(), boards
         );
         return ArticleDto.fromEntity(articleRepository.save(article));
     }

@@ -14,6 +14,7 @@ public class CommentDto {
         this.content = content;
         this.password = password;
     }
+    //static factory method
     public static CommentDto fromEntity(Comment entity) {
         CommentDto dto = new CommentDto();
         dto.commentId = entity.getCommentId();
