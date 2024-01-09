@@ -1,5 +1,6 @@
 package com.example.webPage;
 
+import com.example.webPage.dto.ArticleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,7 @@ public class ArticleController {
     @GetMapping
     public String article(Model model){
         model.addAttribute("articles", articleService.readAll());
-                return "article/articleList";
+        return "article/articleList";
     }
 
     @GetMapping("write")
@@ -37,7 +38,7 @@ public class ArticleController {
         //이렇게 생성된 게시글의 새 Id를 newId에 저장
         //성공적으로 생성되면 article/newId로 리다이렉트
         Long newId = articleService.create(new ArticleDto(title, content, password)).getArticleId();
-            return String.format("redirect:/article/%d", newId);
+        return String.format("redirect:/article/%d", newId);
     }
 
     @GetMapping("{articleId}")

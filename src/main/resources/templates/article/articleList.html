@@ -2,29 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${boardName} + ' 게시판'" >게시판</title>
+    <title>ArticleList</title>
 </head>
 <body>
 <div>
-    <h1 th:text="${boardName} + ' 게시판'">게시판</h1>
+    <h1>Article List</h1>
     <a href="article/write">Write</a>
 </div>
 <table>
-<thead>
-<tr>
-    <th scope="col">#</th>
-    <th scope="col">Title</th>
-</tr>
-</thead>
-<tbody>
-<tr th:each="article: ${articles}">
-    <th scope="col" th:text="${article.articleId}"></th>
-    <th scope="col">
-        <a th:href="@{/article/{articleId}(articleId=${article.articleId})}" th:text="${article.title}"></a>
-    </th>
-</tr>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="article: ${articles}">
+        <th scope="col" th:text="${article.articleId}"></th>
+        <th scope="col">
+            <a th:href="@{/article/{articleId}(articleId=${article.articleId})}" th:text="${article.title}"></a>
+        </th>
+    </tr>
 
-</tbody>
+    </tbody>
 </table>
 </body>
 </html>

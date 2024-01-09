@@ -1,5 +1,8 @@
 package com.example.webPage;
 
+import com.example.webPage.dto.ArticleDto;
+import com.example.webPage.entity.Article;
+import com.example.webPage.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +32,7 @@ public class ArticleService {
 
     public ArticleDto read(Long id){
         Article article = articleRepository.findById(id).orElseThrow();
-                return ArticleDto.fromEntity(article);
+        return ArticleDto.fromEntity(article);
     }
 
     //수정할 때, 비밀번호는 수정 불가함
