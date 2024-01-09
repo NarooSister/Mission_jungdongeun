@@ -7,10 +7,10 @@
 <body>
 <div>
 <h1>Update: [[${article.title}]]</h1>
-<a th:href="@{/article/{articleId}(id=${article.articleId})}">Back</a>
+<a th:href="@{/article/{articleId}(articleId=${article.articleId})}">Back</a>
 </div>
 <hr>
-<form th:action="@{/article/{articleId}/update(id=${article.articleId})}" method="post">
+<form th:action="@{/article/{articleId}/update(articleId=${article.articleId})}" method="post">
     <div>
         <label for="title-input">Title</label>
         <input type="text" name="title" id="title-input" th:value="${article.title}">
@@ -23,7 +23,7 @@
         <label for="password-input">Password</label>
         <input type="password" name="password" id="password-input" >
     </div>
-    <input type="submit" value="update">
+    <input type="submit" value="edit">
 </form>
 </body>
 </html>
