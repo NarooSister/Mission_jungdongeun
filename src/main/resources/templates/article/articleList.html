@@ -18,9 +18,9 @@
 </thead>
 <tbody>
 <tr th:each="article: ${articles}">
-    <th scope="col" th:text="${article.id}"></th>
+    <th scope="col" th:text="${article.articleId}"></th>
     <th scope="col">
-        <a th:href="@{/article/{id}(id=${article.id})}" th:text="${article.title}"></a>
+        <a th:href="@{/article/{articleId}(id=${article.articleId})}" th:text="${article.title}"></a>
     </th>
 </tr>
 

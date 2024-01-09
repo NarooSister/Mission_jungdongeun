@@ -7,10 +7,10 @@
 <body>
 <div>
 <h1>Update: [[${article.title}]]</h1>
-<a th:href="@{/article/{id}(id=${article.id})}">Back</a>
+<a th:href="@{/article/{articleId}(id=${article.articleId})}">Back</a>
 </div>
 <hr>
-<form th:action="@{/article/{id}/update(id=${article.id})}" method="post">
+<form th:action="@{/article/{articleId}/update(id=${article.articleId})}" method="post">
     <div>
         <label for="title-input">Title</label>
         <input type="text" name="title" id="title-input" th:value="${article.title}">
