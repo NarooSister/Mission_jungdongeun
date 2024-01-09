@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ArticleDto {
-    private Long id;
+    private Long articleId;
     private String title;
     private String content;
     private String password;
@@ -27,7 +27,7 @@ public class ArticleDto {
     //static factory method
     public static ArticleDto fromEntity(Article entity) {
         ArticleDto dto = new ArticleDto();
-        dto.id = entity.getId();
+        dto.articleId = entity.getArticleId();
         dto.title = entity.getTitle();
         dto.content = entity.getContent().replace("\n", "<br>");
         dto.password = entity.getPassword();

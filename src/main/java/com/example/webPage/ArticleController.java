@@ -36,48 +36,48 @@ public class ArticleController {
         //실제로 새로운 게시글로 저장.
         //이렇게 생성된 게시글의 새 Id를 newId에 저장
         //성공적으로 생성되면 article/newId로 리다이렉트
-        Long newId = articleService.create(new ArticleDto(title, content, password)).getId();
+        Long newId = articleService.create(new ArticleDto(title, content, password)).getArticleId();
             return String.format("redirect:/article/%d", newId);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{articleId}")
     public String articleOne(
-            @PathVariable("id")
+            @PathVariable("articleId")
             Long id,
             Model model
     ){
         model.addAttribute("article", articleService.read(id));
         return "article/articlePage";
     }
-    @GetMapping("{id}/edit")
+    @GetMapping("{articleId}/update")
     public String articleEdit(
-            @PathVariable("id")
+            @PathVariable("articleId")
             Long id,
             Model model
     ) {
         model.addAttribute("article", articleService.read(id));
-        return "article/edit";
+        return "/article/update";
     }
 
-    @PostMapping("{id}/update")
+    @PostMapping("{articleId}/update")
     public String articleUpdate(
-            @PathVariable("id")
-            Long id,
+            @PathVariable("articleId")
+            Long articleId,
             @RequestParam("title")
             String title,
             @RequestParam("content")
             String content
     ) {
-        articleService.update(id, new ArticleDto(title, content));
-        return String.format("redirect:/article/%d", id);
+        articleService.update(articleId, new ArticleDto(title, content));
+        return String.format("redirect:/article/%d", articleId);
     }
 
-    @PostMapping("{id}/delete")
+    @PostMapping("{articleId}/delete")
     public String articleDelete(
-            @PathVariable("id")
-            Long id
+            @PathVariable("articleId")
+            Long articleId
     ) {
-        articleService.delete(id);
+        articleService.delete(articleId);
         return "redirect:/article";
     }
 }
