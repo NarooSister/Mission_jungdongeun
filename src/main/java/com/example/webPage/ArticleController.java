@@ -47,7 +47,7 @@ public class ArticleController {
             Model model
     ){
         model.addAttribute("article", articleService.read(id));
-        return "article/read";
+        return "article/articlePage";
     }
 
 }
