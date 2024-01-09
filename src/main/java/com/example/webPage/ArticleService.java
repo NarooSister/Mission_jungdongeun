@@ -1,5 +1,8 @@
 package com.example.webPage;
 
+import com.example.webPage.dto.ArticleDto;
+import com.example.webPage.entity.Article;
+import com.example.webPage.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

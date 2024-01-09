@@ -1,7 +1,12 @@
-package com.example.webPage;
+package com.example.webPage.dto;
 
+import com.example.webPage.entity.Article;
+import com.example.webPage.entity.Comment;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -10,6 +15,7 @@ public class ArticleDto {
     private String title;
     private String content;
     private String password;
+    private List<CommentDto> comments = new ArrayList<>();
 
     //title과 content만 필요한 경우의 생성자
     public ArticleDto(String title, String content){
@@ -31,6 +37,9 @@ public class ArticleDto {
         dto.title = entity.getTitle();
         dto.content = entity.getContent().replace("\n", "<br>");
         dto.password = entity.getPassword();
+        dto.comments = new ArrayList<>();
+        for (Comment comment: entity.getComments())
+            dto.comments.add(CommentDto.fromEntity(comment));
         return dto;
     }
 }
