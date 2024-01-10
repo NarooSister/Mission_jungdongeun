@@ -16,20 +16,30 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping
-    public String article(Long boardsId, Model model) {
+    public String article(
+            Long boardsId,
+            Model model) {
         model.addAttribute("articles", articleService.readAll());
 
         String inputBoardsId = null;
 
         if ( boardsId == 1){
             inputBoardsId = "allBoards";
+        } else if ( boardsId == 2 ) {
+            inputBoardsId = "freeBoards";
+        }else if ( boardsId == 3 ) {
+            inputBoardsId = "devBoards";
+        } else if ( boardsId == 4 ) {
+            inputBoardsId = "dailyBoards";
+        } else if ( boardsId == 5 ) {
+            inputBoardsId = "accidentBoards";
         }
-
         return "boards/" + inputBoardsId;
     }
 
     @GetMapping("write")
     public String articleWrite() {
+
         return "article/write";
     }
 
@@ -37,6 +47,7 @@ public class ArticleController {
     //http post요청이 /article 경로로 들어왔을 때 이 메서드가 처리
     @PostMapping
     public String articleCreate(
+
             @RequestParam("title")
             String title,
             @RequestParam("content")
@@ -56,10 +67,11 @@ public class ArticleController {
     @GetMapping("{articleId}")
     public String articleOne(
             @PathVariable("articleId")
-            Long id,
+            Long articleId,
             Model model
     ) {
-        model.addAttribute("article", articleService.read(id));
+        System.out.println("다");
+        model.addAttribute("article", articleService.read(articleId));
         return "article/articlePage";
     }
 

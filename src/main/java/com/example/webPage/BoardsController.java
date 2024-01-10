@@ -16,6 +16,20 @@ public class BoardsController {
         return "index";
     }
 
+    //articleController에서 가져온 articleList반환하는 애
+     /*@GetMapping
+    public String article(Long boardsId, Model model) {
+        model.addAttribute("articles", articleService.readAll());
+
+        String inputBoardsId = null;
+
+        if ( boardsId == 1){
+            inputBoardsId = "allBoards";
+        }
+
+        return "boards/" + inputBoardsId;
+    }*/
+
 //    @GetMapping
 //    public String boards(Model model){
 //        model.addAttribute("boards", boardsService.readAll());
