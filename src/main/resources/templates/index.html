@@ -16,11 +16,11 @@
     </thead>
     <tbody>
     <tr th:each="boards: ${boards}">
-        <th scope="col" th:text="${boards.boardsId}"></th>
-        <th scope="col">
+        <td th:text="${boards.boardsId}"></td>
+        <td >
             <a th:href="@{/article(boardsId=${boards.boardsId})}" th:text="${boards.name}"></a>
             <input type="hidden" name="boardsId" th:value="${boards.boardsId}">
-        </th>
+        </td>
     </tr>
     <tr>
         <th></th>

@@ -2,12 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ArticleList</title>
+    <title>Boards</title>
 </head>
 <body>
 <div>
-    <h1>Article List</h1>
-    <a href="/article/write">Write</a>
+    <h1 th:switch="${inputBoards_id}">
+        <h1 th:case="allBoards">전체 게시판</h1>
+        <h1 th:case="freeBoards">자유 게시판</h1>
+        <h1 th:case="devBoards">개발 게시판</h1>
+        <h1 th:case="dailyBoards">일상 게시판</h1>
+        <h1 th:case="accidentBoards">사건/사고 게시판</h1>
+        <!-- Add more cases if needed -->
+        <h1 th:case="*">Unknown Boards</h1>
+    </h1>
+    <a href="/">Back</a>
 </div>
 <table>
     <thead>
@@ -18,12 +26,12 @@
     </thead>
     <tbody>
     <tr th:each="article: ${articles}">
-        <th scope="col" th:text="${article.articleId}"></th>
-        <th scope="col">
+        <td th:text="${article.articleId}"></td>
+        <td>
             <a th:href="@{/article/{articleId}(articleId=${article.articleId})}" th:text="${article.title}"></a>
-        </th>
+            <input type="hidden" name="articleId" th:value="${article.articleId}">
+        </td>
     </tr>
-
     </tbody>
 </table>
 </body>

@@ -17,8 +17,11 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping
-    public String article(Long boardsId, Model model) {
-        String inputBoardsId = null;
+    public String article(
+            @RequestParam(name = "boardsId", required = false, defaultValue = "1")
+            Long boardsId,
+            Model model) {
+        String inputBoardsId;
 
         if (boardsId == 1) {
             inputBoardsId = "allBoards";
@@ -27,18 +30,21 @@ public class ArticleController {
             if (boardsId == 2) {
                 inputBoardsId = "freeBoards";
             }
-            if (boardsId == 3) {
+            else if (boardsId == 3) {
                 inputBoardsId = "devBoards";
             }
-            if (boardsId == 4) {
+            else if (boardsId == 4) {
                 inputBoardsId = "dailyBoards";
             }
-            if (boardsId == 5) {
+            else if (boardsId == 5) {
                 inputBoardsId = "accidentBoards";
+            } else{
+                return "redirect:/";
             }
             model.addAttribute("articles", articleService.findByBoardsBoardsId(boardsId));
         }
-        return "boards/" + inputBoardsId;
+       /* return "boards/" + inputBoardsId;*/
+        return "article/articleList";
     }
 
     @GetMapping("write")
@@ -120,7 +126,6 @@ public class ArticleController {
     @PostMapping("{articleId}/deleteArticle")
     public String articleDelete(
             @PathVariable("articleId") Long articleId,
-            @PathVariable("boardsId") Long boardId,
             @RequestParam("password") String password
     ) {
         // 비밀번호 확인 후 삭제
