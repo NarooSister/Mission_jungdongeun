@@ -6,7 +6,7 @@ INSERT INTO boards (name)
        ('일상 게시판'),
        ('사건사고 게시판');
 
-INSERT INTO article (title, content, password, boards_boards_id)
+INSERT INTO article (title, content, password, boards_id)
         VALUES ('제목1', '내용1', '1234', 2),
            ('제목2', '내용2', '1234', 3),
            ('제목3', '내용3', '1234', 4),

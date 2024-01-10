@@ -24,10 +24,10 @@ public class ArticleService {
 
     public List<ArticleDto> readAll(){
         List<ArticleDto> articlelist = new ArrayList<>();
-        for(Article article:articleRepository.findAll()){
+
+        for(Article article : articleRepository.findAll(Sort.by(Sort.Direction.DESC, "articleId"))){
             articlelist.add(ArticleDto.fromEntity(article));
         }
-
         return articlelist;
     }
 

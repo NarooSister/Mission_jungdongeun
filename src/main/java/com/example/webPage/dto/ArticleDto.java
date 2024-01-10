@@ -32,7 +32,7 @@ public class ArticleDto {
         this. password = password;
     }
 
-    public ArticleDto(String title, String content, String password, Long boards_id){
+    public ArticleDto(String title, String content, String password, Long boardsId){
         this.title = title;
         this.content= content;
         this.password = password;

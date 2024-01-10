@@ -50,7 +50,6 @@ public class CommentController {
 
         model.addAttribute("commentId", commentId);
         model.addAttribute("articleId", articleId);
-        System.out.println("Received commentId: " + commentId);
         return "article/deleteComment";
     }
 

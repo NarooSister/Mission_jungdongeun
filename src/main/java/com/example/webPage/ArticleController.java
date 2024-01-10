@@ -103,21 +103,25 @@ public class ArticleController {
 
     // 삭제 페이지 이동
     @PostMapping("deleteArticle")
-    public String articlePassword(Long articleId, Model model) {
+    public String articlePassword(
+            Long articleId,
+            Long boardsId,
+            Model model) {
 
         model.addAttribute("articleId", articleId);
-        System.out.println("Received articleId: " + articleId);
+        model.addAttribute("boardsId", boardsId);
         return "article/deleteArticle";
     }
 
     //비밀번호 확인 후 삭제
     @PostMapping("{articleId}/deleteArticle")
     public String articleDelete(
-            @PathVariable("articleId") Long id,
+            @PathVariable("articleId") Long articleId,
+            @PathVariable("boardsId") Long boardId,
             @RequestParam("password") String password
     ) {
         // 비밀번호 확인 후 삭제
-        articleService.delete(id, password);
-        return "redirect:/article/{boards}";
+        articleService.delete(articleId, password);
+        return "redirect:/article/{boardsId}";
     }
 }
