@@ -73,5 +73,16 @@ public class ArticleService {
         }
     }
 
+    public List<ArticleDto> findByBoardsBoardsId(Long boardsId) {
+        List<ArticleDto> articleList = new ArrayList<>();
+
+        for (Article article : articleRepository.findByBoardsBoardsId(boardsId, Sort.by(Sort.Direction.DESC, "articleId"))) {
+            articleList.add(ArticleDto.fromEntity(article));
+            System.out.println("=============================");
+            System.out.println(ArticleDto.fromEntity(article));
+        }
+
+        return articleList;
+    }
 
 }

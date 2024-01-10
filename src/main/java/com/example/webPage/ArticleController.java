@@ -17,23 +17,26 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping
-    public String article(
-            Long boardsId,
-            Model model) {
-        model.addAttribute("articles", articleService.readAll());
-
+    public String article(Long boardsId, Model model) {
         String inputBoardsId = null;
 
-        if ( boardsId == 1){
+        if (boardsId == 1) {
             inputBoardsId = "allBoards";
-        } else if ( boardsId == 2 ) {
-            inputBoardsId = "freeBoards";
-        }else if ( boardsId == 3 ) {
-            inputBoardsId = "devBoards";
-        } else if ( boardsId == 4 ) {
-            inputBoardsId = "dailyBoards";
-        } else if ( boardsId == 5 ) {
-            inputBoardsId = "accidentBoards";
+            model.addAttribute("articles", articleService.readAll());
+        } else {
+            if (boardsId == 2) {
+                inputBoardsId = "freeBoards";
+            }
+            if (boardsId == 3) {
+                inputBoardsId = "devBoards";
+            }
+            if (boardsId == 4) {
+                inputBoardsId = "dailyBoards";
+            }
+            if (boardsId == 5) {
+                inputBoardsId = "accidentBoards";
+            }
+            model.addAttribute("articles", articleService.findByBoardsBoardsId(boardsId));
         }
         return "boards/" + inputBoardsId;
     }
