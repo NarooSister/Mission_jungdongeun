@@ -8,6 +8,8 @@ import com.example.webPage.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CommentService {
@@ -30,8 +32,17 @@ public class CommentService {
     }
 
     //DELETE
-    public void delete(Long commentId) {
-        commentRepository.delete(commentRepository.findById(commentId)
-                .orElseThrow());
+//    public void delete(Long commentId) {
+//        commentRepository.delete(commentRepository.findById(commentId)
+//                .orElseThrow());
+//    }
+    public void delete(Long id, String password) {
+        Optional<Comment> optionalComment = commentRepository.findById(id);
+        if (optionalComment.isPresent()) {
+            Comment comment = optionalComment.get();
+            if (comment.getPassword().equals(password)) {
+                commentRepository.delete(comment);
+            }
+        }
     }
 }

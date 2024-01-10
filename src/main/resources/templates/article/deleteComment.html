@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Delete Comment</title>
 </head>
 <body>
 
+<h2>Delete Comment</h2>
+
+
+
+<form th:action="@{{commentId}/deleteComment(commentId=${commentId})}" method="post">
+    <input type="hidden"  name="commentId" th:value="${commentId}">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Delete</button>
+</form>
+<a th:href="@{/article/{articleId}(articleId=${articleId})}">Back to Article</a>
+
+<!--<a th:href="@{'/article/' + ${article.articleId}}">Back to Article</a>-->
 </body>
 </html>

@@ -36,14 +36,16 @@
     <input type="submit" value="Write">
 </form>
 <hr>
+<!-- 댓글  -->
 <h2>Comments</h2>
 <div th:if="${article.comments.isEmpty()}"><h3>No Comments</h3></div>
 <div th:unless="${article.comments.isEmpty()}" th:each="comment: ${article.comments}">
     <div>
         <div>
-            <form th:action="@{/article/{articleId}/comment/{commentId}/delete(
+            <form th:action="@{/article/{articleId}/comment/deleteComment(
             articleId=${article.articleId},commentId=${comment.commentId})}"
                   method="post">
+                <input type="hidden"  name="articleId" th:value="${article.articleId}">
                 <input type="submit" value="Delete">
             </form>
         </div>
