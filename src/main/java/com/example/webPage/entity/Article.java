@@ -34,7 +34,8 @@ public class Article {
     public Article() {
     }
 
-    public Article(String title, String content, String password) {
+    public Article(Long articleId, String title, String content, String password) {
+        this.articleId =articleId;
         this.title = title;
         this.content = content;
         this.password = password;

@@ -2,25 +2,30 @@ package com.example.webPage;
 
 import com.example.webPage.dto.ArticleDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 @RequestMapping("article")
 @RequiredArgsConstructor
 public class ArticleController {
     private final ArticleService articleService;
+
     @GetMapping
-    public String article(Model model){
+    public String article(Model model) {
         model.addAttribute("articles", articleService.readAll());
         return "article/articleList";
     }
 
     @GetMapping("write")
-    public String articleWrite(){
+    public String articleWrite() {
         return "article/write";
     }
+
     //CREATE
     //http post요청이 /article 경로로 들어왔을 때 이 메서드가 처리
     @PostMapping
@@ -31,7 +36,7 @@ public class ArticleController {
             String content,
             @RequestParam("password")
             String password
-    ){
+    ) {
         //받아온 데이터를 이용하여 ArticleDto을 생성하고
         // articleService.create 메서드를 이용해
         //실제로 새로운 게시글로 저장.
@@ -46,10 +51,11 @@ public class ArticleController {
             @PathVariable("articleId")
             Long id,
             Model model
-    ){
+    ) {
         model.addAttribute("article", articleService.read(id));
         return "article/articlePage";
     }
+
     @GetMapping("{articleId}/update")
     public String articleEdit(
             @PathVariable("articleId")
@@ -57,28 +63,39 @@ public class ArticleController {
             Model model
     ) {
         model.addAttribute("article", articleService.read(id));
-        return "/article/update";
+        return "article/update";
     }
 
     @PostMapping("{articleId}/update")
     public String articleUpdate(
             @PathVariable("articleId")
-            Long articleId,
+            Long id,
             @RequestParam("title")
             String title,
             @RequestParam("content")
             String content
     ) {
-        articleService.update(articleId, new ArticleDto(title, content));
-        return String.format("redirect:/article/%d", articleId);
+        articleService.update(id, new ArticleDto(title, content));
+        return String.format("redirect:/article/%d", id);
     }
 
-    @PostMapping("{articleId}/delete")
+    // 삭제 페이지 이동
+    @PostMapping("deleteArticle")
+    public String articlePassword(Long articleId, Model model) {
+
+        model.addAttribute("articleId", articleId);
+        System.out.println("Received articleId: " + articleId);
+        return "article/deleteArticle";
+    }
+
+    //비밀번호 확인 후 삭제
+    @PostMapping("{articleId}/deleteArticle")
     public String articleDelete(
-            @PathVariable("articleId")
-            Long articleId
+            @PathVariable("articleId") Long id,
+            @RequestParam("password") String password
     ) {
-        articleService.delete(articleId);
+        // 비밀번호 확인 후 삭제
+        articleService.delete(id, password);
         return "redirect:/article";
     }
 }

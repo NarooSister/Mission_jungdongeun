@@ -8,11 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ArticleService {
+public class BoardsService {
     private final ArticleRepository articleRepository;
 
     //CREATE
@@ -44,28 +43,7 @@ public class ArticleService {
         return ArticleDto.fromEntity(articleRepository.save(article));
     }
 
-    //비밀번호 확인 메서드
-//    public boolean checkPassword(Long articleId, String enteredPassword) {
-//        Optional<Article> optionalArticle = articleRepository.findById(articleId);
-//        if (optionalArticle.isPresent()) {
-//            Article article = optionalArticle.get();
-//            System.out.println("Article found: " + article);
-//            return article.getPassword().equals(enteredPassword);
-//        } else {
-//            System.out.println("Article not found for id: " + articleId);
-//            return false;
-//        }
-//    }
-
-    public void delete(Long id, String password) {
-        Optional<Article> optionalArticle = articleRepository.findById(id);
-        if (optionalArticle.isPresent()) {
-            Article article = optionalArticle.get();
-            if (article.getPassword().equals(password)) {
-                articleRepository.delete(article);
-            }
-        }
+    public void delete(Long id){
+        articleRepository.delete(articleRepository.findById(id).orElseThrow());
     }
-
-
 }

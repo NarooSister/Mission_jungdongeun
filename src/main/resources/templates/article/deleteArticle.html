@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Article</title>
+</head>
+<body>
+
+<h2>Delete Article</h2>
+
+
+<!--<form th:action="@{'/article/' + ${article.articleId} + '/deleteArticle'}" method="post">-->
+<!--    <input type="hidden" name="articleId" th:value="${article.articleId}">-->
+
+<form th:action="@{/article/{articleId}/deleteArticle(articleId=${articleId})}" method="post">
+    <input type="hidden"  name="articleId" th:value="${articleId}">
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Delete</button>
+</form>
+<a th:href="@{/article/{articleId}(articleId=${articleId})}">Back to Article</a>
+<!--<a th:href="@{'/article/' + ${article.articleId}}">Back to Article</a>-->
+</body>
+</html>
