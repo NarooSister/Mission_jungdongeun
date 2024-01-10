@@ -16,9 +16,16 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping
-    public String article(Model model) {
+    public String article(Long boardsId, Model model) {
         model.addAttribute("articles", articleService.readAll());
-        return "article/articleList";
+
+        String inputBoardsId = null;
+
+        if ( boardsId == 1){
+            inputBoardsId = "allBoards";
+        }
+
+        return "boards/" + inputBoardsId;
     }
 
     @GetMapping("write")

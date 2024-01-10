@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+</head>
+<body>
+<h1>Home Page</h1>
+<table>
+<thead>
+<tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+</tr>
+</thead>
+<tbody><!--
+<tr th:each="boards: ${boards}">
+    <th scope="col" th:text="${boards.boardsId}"></th>
+    <th scope="col">
+        <a th:href="@{/article}" th:text="${boards.name}">
+            <input type="hidden" name="boardsId" th:value="${boards.boardsId}">
+        </a>
+    </th>
+</tr>-->
+<tr>
+    <th></th>
+</tr>
+
+
+</tbody>
+</table>
+</body>
+</html>

@@ -11,3 +11,10 @@ spring:
   sql:
     init:
       mode: always
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  thymeleaf:
+    cache: false

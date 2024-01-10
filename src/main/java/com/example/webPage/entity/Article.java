@@ -40,6 +40,13 @@ public class Article {
         this.content = content;
         this.password = password;
     }
+    public Article(Long articleId, String title, String content, String password, Boards boards) {
+        this.articleId =articleId;
+        this.title = title;
+        this.content = content;
+        this.password = password;
+        this.boards = boards;
+    }
 
     @Override
     public String toString() {

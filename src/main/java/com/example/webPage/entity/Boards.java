@@ -35,4 +35,9 @@ public class Boards {
                 ", articles=" + articles +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

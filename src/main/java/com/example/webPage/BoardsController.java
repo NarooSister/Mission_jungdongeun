@@ -1,21 +1,19 @@
 package com.example.webPage;
 
-import com.example.webPage.dto.ArticleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("boards")
 @RequiredArgsConstructor
 public class BoardsController {
     private final BoardsService boardsService;
 
-    @GetMapping
+    @GetMapping("/")
     public String boards(Model model) {
         model.addAttribute("boards", boardsService.readAll());
-        return "boards";
+        return "index";
     }
 
 //    @GetMapping
