@@ -7,7 +7,7 @@
 <body>
 <div>
     <h1>Write Article</h1>
-    <a href="/article">Back</a>
+    <a href="/">Back</a>
 </div>
 <hr>
 <form action="/article" method="post">
@@ -23,7 +23,18 @@
         <label for="password-input">Password</label>
         <input type="password" name="password" id="password-input">
     </div>
+    <div>
+        <label>게시판 분류</label>
+        <select name="boardId">
+            <option value="2">자유 게시판</option>
+            <option value="3">개발 게시판</option>
+            <option value="4">일상 게시판</option>
+            <option value="5">사건사고 게시판</option>
+        </select>
+
+    </div>
     <input type="submit" value="Write">
+
 </form>
 </body>
 </html>

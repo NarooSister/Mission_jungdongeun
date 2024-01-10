@@ -5,13 +5,10 @@
     <title>Delete Comment</title>
 </head>
 <body>
-
 <h2>Delete Comment</h2>
 
-
-
 <form th:action="@{{commentId}/deleteComment(commentId=${commentId})}" method="post">
-    <input type="hidden"  name="commentId" th:value="${commentId}">
+    <input type="hidden" name="commentId" th:value="${commentId}">
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
 

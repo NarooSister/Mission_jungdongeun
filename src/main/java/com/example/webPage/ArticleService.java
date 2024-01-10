@@ -36,12 +36,18 @@ public class ArticleService {
         return ArticleDto.fromEntity(article);
     }
 
-    //수정할 때, 비밀번호는 수정 불가함
-    public ArticleDto update(Long id, ArticleDto dto){
+    //수정할 때, 비밀번호 확인 후 save
+    public ArticleDto update(
+            Long id,
+            String password,
+            ArticleDto dto) {
         Article article = articleRepository.findById(id).orElseThrow();
         article.setTitle(dto.getTitle());
         article.setContent(dto.getContent());
-        return ArticleDto.fromEntity(articleRepository.save(article));
+        if (article.getPassword().equals(password)) {
+            return ArticleDto.fromEntity(articleRepository.save(article));
+        }
+        return dto;
     }
 
     //비밀번호 확인 메서드
