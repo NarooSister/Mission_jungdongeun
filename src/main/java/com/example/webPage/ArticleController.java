@@ -54,14 +54,14 @@ public class ArticleController {
             @RequestParam("password")
             String password,
             @RequestParam("boardsId")
-            Boards boards
+            Long boardsId
     ) {
         //받아온 데이터를 이용하여 ArticleDto을 생성하고
         // articleService.create 메서드를 이용해
         //실제로 새로운 게시글로 저장.
         //이렇게 생성된 게시글의 새 Id를 newId에 저장
         //성공적으로 생성되면 article/newId로 리다이렉트
-        Long newId = articleService.create(new ArticleDto(title, content, password, boards)).getArticleId();
+        Long newId = articleService.create(new ArticleDto(title, content, password, boardsId)).getArticleId();
         return String.format("redirect:/article/%d", newId);
     }
 

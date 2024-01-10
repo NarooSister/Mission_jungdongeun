@@ -4,11 +4,10 @@ import com.example.webPage.dto.ArticleDto;
 import com.example.webPage.entity.Article;
 import com.example.webPage.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +17,7 @@ public class ArticleService {
     //CREATE
     public ArticleDto create(ArticleDto dto){
         Article article = new Article(
-                dto.getArticleId(), dto.getTitle(), dto.getContent(), dto.getPassword()
+                dto.getArticleId(), dto.getTitle(), dto.getContent(), dto.getPassword(), dto.getBoardsId()
         );
         return ArticleDto.fromEntity(articleRepository.save(article));
     }
@@ -28,6 +27,7 @@ public class ArticleService {
         for(Article article:articleRepository.findAll()){
             articlelist.add(ArticleDto.fromEntity(article));
         }
+
         return articlelist;
     }
 

@@ -24,6 +24,8 @@ public class Article {
 
     @Setter
     private String password;
+    @Setter
+    private Long boardsId;
 
     @OneToMany(mappedBy = "article")
     private final List<Comment> comments = new ArrayList<>();
@@ -47,7 +49,13 @@ public class Article {
         this.password = password;
         this.boards = boards;
     }
-
+    public Article(Long articleId, String title, String content, String password, Long boardsId) {
+        this.articleId =articleId;
+        this.title = title;
+        this.content = content;
+        this.password = password;
+        this.boardsId = boardsId;
+    }
     @Override
     public String toString() {
         return "Article{" +

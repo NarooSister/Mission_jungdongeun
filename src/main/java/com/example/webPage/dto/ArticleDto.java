@@ -17,21 +17,26 @@ public class ArticleDto {
     private String content;
     private String password;
     private List<CommentDto> comments = new ArrayList<>();
-    private Boards boards;
+    private Long boardsId;
 
 
-    //password 포함한 생성자
+    //title과 content만 필요한 경우의 생성자
     public ArticleDto(String title, String content){
         this.title = title;
         this.content = content;
     }
-
     //password 포함한 생성자
-    public ArticleDto(String title, String content, String password, Boards boards){
+    public ArticleDto(String title, String content, String password){
         this.title = title;
         this.content= content;
         this. password = password;
-        this.boards =boards;
+    }
+
+    public ArticleDto(String title, String content, String password, Long boards_id){
+        this.title = title;
+        this.content= content;
+        this.password = password;
+        this.boardsId = boardsId;
     }
 
     //static factory method
@@ -46,4 +51,5 @@ public class ArticleDto {
             dto.comments.add(CommentDto.fromEntity(comment));
         return dto;
     }
+
 }
