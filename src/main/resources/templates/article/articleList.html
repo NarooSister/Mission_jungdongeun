@@ -25,11 +25,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="article: ${articles}"  th:with="boardsId=${article.boards.id}">
+    <tr th:each="article: ${articles}">
         <td th:text="${article.id}"></td>
         <td>
-            <a th:href="@{/article/{articleId}(articleId=${article.id}, boardsId=${article.boardsId})}" th:text="${article.title}"></a>
-
+            <a th:href="@{/article/{id}(id=${article.id})}" th:text="${article.title}"></a>
+            <input type="hidden" name="articleId" th:value="${article.id}">
     </tr>
     </tbody>
 </table>

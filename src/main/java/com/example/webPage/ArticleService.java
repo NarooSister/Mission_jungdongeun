@@ -46,6 +46,7 @@ public class ArticleService {
         Article article = articleRepository.findById(id).orElseThrow();
         article.setTitle(dto.getTitle());
         article.setContent(dto.getContent());
+        article.setPassword(dto.getPassword());
         if (article.getPassword().equals(password)) {
             return ArticleDto.fromEntity(articleRepository.save(article));
         }

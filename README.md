@@ -82,3 +82,6 @@
 
 
 ## 실행과 테스트
+
+WebPageApplication을 run 한 뒤 build.gradle에서 의존성 주입을 한 뒤 localhost:8080을 입력하여 메인 화면을 실행 가능합니다.
+현재 thymleaf 에러 해결하지 못하여 localhost:8080 이후 자유 게시판만 들어갈 수 있습니다.

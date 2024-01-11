@@ -11,21 +11,22 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping
 @RequiredArgsConstructor
+
 public class ArticleController {
     private final ArticleService articleService;
     private final BoardsService boardsService;
 
-    @GetMapping("article/write")
+    //새 글 작성 페이지로 이동
+    @GetMapping("/article/write")
     public String articleWrite() {
         return "article/write";
     }
 
     //CREATE
     //http post요청이 /article 경로로 들어왔을 때 이 메서드가 처리
-    @PostMapping("article/create")
-    public String createArticle(
+    @PostMapping
+    public String articleCreate(
             @RequestParam("title") String title,
             @RequestParam("content") String content,
             @RequestParam("password") String password,
@@ -33,14 +34,13 @@ public class ArticleController {
     ) {
         // ArticleService를 통해 Article 생성
         Long newArticleId = articleService.create(new ArticleDto(title, content, password, boardsId)).getId();
-        System.out.println(newArticleId);
         // 생성된 Article의 ID를 이용하여 상세 페이지로 리다이렉트
         return String.format("redirect:/article/%d", newArticleId);
     }
 
-    @GetMapping("boards/{boardsId}")
+    @GetMapping("boards/{id}")
     public String readAll(
-            @PathVariable("boardsId")
+            @PathVariable("id")
             Long boardsId,
             Model model) {
         model.addAttribute("boards", boardsService.read(boardsId));
@@ -103,7 +103,7 @@ public class ArticleController {
         return "article/articlePage";
     }
 
-    @GetMapping("article/{id}/update")
+    @GetMapping("article/{id}/edit")
     public String articleEdit(
             @PathVariable("id")
             Long id,

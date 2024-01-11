@@ -18,8 +18,8 @@
     <tr th:each="boards: ${boards}">
         <td th:text="${boards.id}"></td>
         <td >
-            <a th:href="@{/boards/{boardsId}(boardsId=${boards.id})}" th:text="${boards.name}"></a>
-<!--            <input type="hidden" name="boardsId" th:value="${boards.id}">-->
+            <a th:href="@{/boards/{id}(id=${boards.id})}" th:text="${boards.name}"></a>
+            <input type="hidden" name="boardsId" th:value="${boards.id}">
         </td>
     </tr>
     <tr>
