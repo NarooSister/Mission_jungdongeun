@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
+    private Long id;
     @Setter
     @Lob
     private String content;
@@ -22,11 +22,9 @@ public class Comment {
 
     public Comment() {
     }
-
     public Comment(String content, String password, Article article) {
         this.content = content;
         this.password = password;
         this.article = article;
     }
-
 }

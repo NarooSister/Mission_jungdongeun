@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CommentDto {
-    private Long commentId;
+    private Long id;
     private String content;
     private String password;
     public CommentDto(String content, String password){
@@ -16,7 +16,7 @@ public class CommentDto {
     }
     public static CommentDto fromEntity(Comment entity) {
         CommentDto dto = new CommentDto();
-        dto.commentId = entity.getCommentId();
+        dto.id = entity.getId();
         dto.content = entity.getContent();
         dto.password = entity.getPassword();
         return dto;

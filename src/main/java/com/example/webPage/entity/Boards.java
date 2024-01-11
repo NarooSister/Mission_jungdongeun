@@ -15,24 +15,16 @@ import java.util.List;
 public class Boards {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardsId;
-
+    private Long id;
     @Setter
     private String name;
 
     @OneToMany(mappedBy = "boards")
     private final List<Article> articles = new ArrayList<>();
 
-    public Boards(String name) {
+    public Boards(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Boards{" +
-                "boardsId=" + boardsId +
-                ", name='" + name + '\'' +
-                ", articles=" + articles +
-                '}';
-    }
 }

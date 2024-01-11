@@ -13,7 +13,7 @@ import java.util.List;
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long articleId;
+    private Long id;
 
     @Setter
     private String title;
@@ -24,54 +24,27 @@ public class Article {
 
     @Setter
     private String password;
-    @Setter
-    private Long boardsId;
+
 
     @OneToMany(mappedBy = "article")
     private final List<Comment> comments = new ArrayList<>();
-    @Setter
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "boards_id")
     private Boards boards;
 
     public Article() {
     }
 
-    public Article(Long articleId, String title, String content, String password) {
-        this.articleId =articleId;
-        this.title = title;
-        this.content = content;
-        this.password = password;
+    public Long getBoardsId() {
+        return (boards != null) ? boards.getId() : null;
     }
-    public Article(Long articleId, String title, String content, String password, Boards boards) {
-        this.articleId =articleId;
+
+    public Article(String title, String content, String password, Boards boards) {
         this.title = title;
         this.content = content;
         this.password = password;
         this.boards = boards;
     }
-    public Article(Long articleId, String title, String content, String password, Long boardsId) {
-        this.articleId =articleId;
-        this.title = title;
-        this.content = content;
-        this.password = password;
-        this.boardsId = boardsId;
-    }
-    @Override
-    public String toString() {
-        return "Article{" +
-                "articleId=" + articleId +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", password='" + password + '\'' +
-                ", comments=" + comments +
-                ", boards=" + boards +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
 
 }

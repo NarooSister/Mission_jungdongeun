@@ -1,93 +1,111 @@
 package com.example.webPage;
 
 import com.example.webPage.dto.ArticleDto;
-import com.example.webPage.entity.Boards;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @Controller
-@RequestMapping("article")
+@RequestMapping
 @RequiredArgsConstructor
 public class ArticleController {
     private final ArticleService articleService;
+    private final BoardsService boardsService;
 
-    @GetMapping
-    public String article(
-            @RequestParam(name = "boardsId", required = false, defaultValue = "1")
-            Long boardsId,
-            Model model) {
-        String inputBoardsId;
-
-        if (boardsId == 1) {
-            inputBoardsId = "allBoards";
-            model.addAttribute("articles", articleService.readAll());
-        } else {
-            if (boardsId == 2) {
-                inputBoardsId = "freeBoards";
-            }
-            else if (boardsId == 3) {
-                inputBoardsId = "devBoards";
-            }
-            else if (boardsId == 4) {
-                inputBoardsId = "dailyBoards";
-            }
-            else if (boardsId == 5) {
-                inputBoardsId = "accidentBoards";
-            } else{
-                return "redirect:/";
-            }
-            model.addAttribute("articles", articleService.findByBoardsBoardsId(boardsId));
-        }
-       /* return "boards/" + inputBoardsId;*/
-        return "article/articleList";
-    }
-
-    @GetMapping("write")
+    @GetMapping("article/write")
     public String articleWrite() {
         return "article/write";
     }
 
     //CREATE
     //http post요청이 /article 경로로 들어왔을 때 이 메서드가 처리
-    @PostMapping
-    public String articleCreate(
-            @RequestParam("title")
-            String title,
-            @RequestParam("content")
-            String content,
-            @RequestParam("password")
-            String password,
-            @RequestParam("boardsId")
-            Long boardsId
+    @PostMapping("article/create")
+    public String createArticle(
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("password") String password,
+            @RequestParam("boardsId") Long boardsId
     ) {
-        //받아온 데이터를 이용하여 ArticleDto을 생성하고
-        // articleService.create 메서드를 이용해
-        //실제로 새로운 게시글로 저장.
-        //이렇게 생성된 게시글의 새 Id를 newId에 저장
-        //성공적으로 생성되면 article/newId로 리다이렉트
-        Long newId = articleService.create(new ArticleDto(title, content, password, boardsId)).getArticleId();
-        return String.format("redirect:/article/%d", newId);
+        // ArticleService를 통해 Article 생성
+        Long newArticleId = articleService.create(new ArticleDto(title, content, password, boardsId)).getId();
+        System.out.println(newArticleId);
+        // 생성된 Article의 ID를 이용하여 상세 페이지로 리다이렉트
+        return String.format("redirect:/article/%d", newArticleId);
     }
 
-    @GetMapping("{articleId}")
-    public String articleOne(
-            @PathVariable("articleId")
-            Long articleId,
+    @GetMapping("boards/{boardsId}")
+    public String readAll(
+            @PathVariable("boardsId")
+            Long boardsId,
+            Model model) {
+        model.addAttribute("boards", boardsService.read(boardsId));
+        /*if (boardsId == 1) {
+            return "/allBoards";
+        } else if (boardsId == 2) {
+            return "/freeBoards";
+        } else if (boardsId == 3) {
+            return "/devBoards";
+        } else if (boardsId == 4) {
+            return "/dailyBoards";
+        } else if (boardsId == 5) {
+            return "/accidentBoards";
+        } else {
+            return "redirect:/";
+        }*/
+
+        String inputBoardsId;
+        if (boardsId == 1) {
+            inputBoardsId = "allBoards";
+        } else if (boardsId == 2) {
+            inputBoardsId = "freeBoards";
+        } else if (boardsId == 3) {
+            inputBoardsId = "devBoards";
+        } else if (boardsId == 4) {
+            inputBoardsId = "dailyBoards";
+        } else if (boardsId == 5) {
+            inputBoardsId = "accidentBoards";
+        } else {
+            return "redirect:/";
+        }
+        System.out.println("inputBoardsId = "+inputBoardsId);
+        List<ArticleDto> articles;
+
+        if ("allBoards".equals(inputBoardsId)) {
+            articles = articleService.readAll();
+        } else {
+            articles = articleService.findByBoardsId(boardsId);
+            System.out.println("findByBoardsId="+boardsId);
+        }
+
+        model.addAttribute("articles", articles);
+        model.addAttribute("inputBoardsId", inputBoardsId);
+
+        /*return "boards/" + inputBoardsId;*/
+
+
+        //articleList에 하나의 페이지로 구현하는 경우
+       return "article/articleList";
+    }
+
+
+    @GetMapping("article/{id}")
+    public String read(
+            @PathVariable("id")
+            Long id,
             Model model
     ) {
-        System.out.println("다");
-        model.addAttribute("article", articleService.read(articleId));
+        model.addAttribute("article", articleService.read(id));
         return "article/articlePage";
     }
 
-    @GetMapping("{articleId}/update")
+    @GetMapping("article/{id}/update")
     public String articleEdit(
-            @PathVariable("articleId")
+            @PathVariable("id")
             Long id,
             Model model
     ) {
@@ -95,9 +113,9 @@ public class ArticleController {
         return "article/update";
     }
 
-    @PostMapping("{articleId}/update")
+    @PostMapping("article/{id}/update")
     public String articleUpdate(
-            @PathVariable("articleId")
+            @PathVariable("id")
             Long id,
             @RequestParam("title")
             String title,
@@ -111,25 +129,26 @@ public class ArticleController {
     }
 
     // 삭제 페이지 이동
-    @PostMapping("deleteArticle")
+    @PostMapping("article/delete")
     public String articlePassword(
-            Long articleId,
+            Long id,
             Long boardsId,
             Model model) {
-
-        model.addAttribute("articleId", articleId);
+        model.addAttribute("articleId", id);
         model.addAttribute("boardsId", boardsId);
         return "article/deleteArticle";
     }
 
     //비밀번호 확인 후 삭제
-    @PostMapping("{articleId}/deleteArticle")
-    public String articleDelete(
-            @PathVariable("articleId") Long articleId,
-            @RequestParam("password") String password
+    @PostMapping("article/{id}/delete")
+    public String delete(
+            @PathVariable("id")
+            Long id,
+            @RequestParam("password")
+            String password
     ) {
         // 비밀번호 확인 후 삭제
-        articleService.delete(articleId, password);
-        return "redirect:/article/{boardsId}";
+        articleService.delete(id, password);
+        return "redirect:/articlePage";
     }
 }

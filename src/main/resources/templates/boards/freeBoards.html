@@ -18,10 +18,10 @@
     </thead>
     <tbody>
     <tr th:each="article: ${articles}">
-        <th scope="col" th:text="${article.articleId}"></th>
+        <th scope="col" th:text="${article.id}"></th>
         <th scope="col">
-            <a th:href="@{/article/{articleId}(articleId=${article.articleId})}" th:text="${article.title}"></a>
-            <input type="hidden" name="articleId" th:value="${article.articleId}">
+            <a th:href="@{/article/{articleId}(articleId=${article.id})}" th:text="${article.title}"></a>
+            <input type="hidden" name="articleId" th:value="${article.id}">
         </th>
     </tr>
 

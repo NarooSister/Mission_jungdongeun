@@ -12,12 +12,14 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class ArticleDto {
-    private Long articleId;
+    private Long id;
     private String title;
     private String content;
     private String password;
-    private List<CommentDto> comments = new ArrayList<>();
-    private Long boardsId;
+    private Long boardsId; // 추가: boardsId 필드
+    private final List<CommentDto> comments = new ArrayList<>();
+
+    private Boards boards;
 
 
     //title과 content만 필요한 경우의 생성자
@@ -26,15 +28,9 @@ public class ArticleDto {
         this.content = content;
     }
     //password 포함한 생성자
-    public ArticleDto(String title, String content, String password){
+    public ArticleDto(String title, String content, String password, Long boardsId) {
         this.title = title;
-        this.content= content;
-        this. password = password;
-    }
-
-    public ArticleDto(String title, String content, String password, Long boardsId){
-        this.title = title;
-        this.content= content;
+        this.content = content;
         this.password = password;
         this.boardsId = boardsId;
     }
@@ -42,11 +38,12 @@ public class ArticleDto {
     //static factory method
     public static ArticleDto fromEntity(Article entity) {
         ArticleDto dto = new ArticleDto();
-        dto.articleId = entity.getArticleId();
+        dto.id = entity.getId();
         dto.title = entity.getTitle();
         dto.content = entity.getContent().replace("\n", "<br>");
         dto.password = entity.getPassword();
-        dto.comments = new ArrayList<>();
+        dto.boards = entity.getBoards();
+        dto.boardsId = entity.getBoards().getId(); // 추가: boardsId 설정
         for (Comment comment: entity.getComments())
             dto.comments.add(CommentDto.fromEntity(comment));
         return dto;

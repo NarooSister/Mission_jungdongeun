@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Write</title>
@@ -10,7 +10,8 @@
     <a href="/">Back</a>
 </div>
 <hr>
-<form action="/article" method="post">
+<form th:action="@{/article/{articleId}(articleId=${article.id})}" name="articleId" method="post">
+    <input type="hidden" name="articleId" th:value="${article.id}">
     <div>
         <label for="title-input">Title</label>
         <input type="text" name="title" id="title-input">
@@ -25,11 +26,11 @@
     </div>
     <div>
         <label>게시판 분류</label>
-        <select name="boardId">
-            <option value="2">자유 게시판</option>
-            <option value="3">개발 게시판</option>
-            <option value="4">일상 게시판</option>
-            <option value="5">사건사고 게시판</option>
+        <select th:name="boardsId">
+            <option value= 2 >자유 게시판</option>
+            <option value= 3>개발 게시판</option>
+            <option value= 4>일상 게시판</option>
+            <option value= 5>사건사고 게시판</option>
         </select>
 
     </div>

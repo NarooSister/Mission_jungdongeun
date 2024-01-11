@@ -3,6 +3,7 @@ package com.example.webPage;
 import com.example.webPage.dto.ArticleDto;
 import com.example.webPage.entity.Article;
 import com.example.webPage.repository.ArticleRepository;
+import com.example.webPage.repository.BoardsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -12,26 +13,27 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
+    private final BoardsRepository boardsRepository;
     private final ArticleRepository articleRepository;
 
     //CREATE
-    public ArticleDto create(ArticleDto dto){
+    public ArticleDto create(ArticleDto dto) {
         Article article = new Article(
-                dto.getArticleId(), dto.getTitle(), dto.getContent(), dto.getPassword(), dto.getBoardsId()
+                dto.getTitle(), dto.getContent(), dto.getPassword(), dto.getBoards()
         );
         return ArticleDto.fromEntity(articleRepository.save(article));
     }
 
-    public List<ArticleDto> readAll(){
+    public List<ArticleDto> readAll() {
         List<ArticleDto> articlelist = new ArrayList<>();
 
-        for(Article article : articleRepository.findAll(Sort.by(Sort.Direction.DESC, "articleId"))){
+        for (Article article : articleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))) {
             articlelist.add(ArticleDto.fromEntity(article));
         }
         return articlelist;
     }
 
-    public ArticleDto read(Long id){
+    public ArticleDto read(Long id) {
         Article article = articleRepository.findById(id).orElseThrow();
         return ArticleDto.fromEntity(article);
     }
@@ -51,17 +53,6 @@ public class ArticleService {
     }
 
     //비밀번호 확인 메서드
-//    public boolean checkPassword(Long articleId, String enteredPassword) {
-//        Optional<Article> optionalArticle = articleRepository.findById(articleId);
-//        if (optionalArticle.isPresent()) {
-//            Article article = optionalArticle.get();
-//            System.out.println("Article found: " + article);
-//            return article.getPassword().equals(enteredPassword);
-//        } else {
-//            System.out.println("Article not found for id: " + articleId);
-//            return false;
-//        }
-//    }
 
     public void delete(Long id, String password) {
         Optional<Article> optionalArticle = articleRepository.findById(id);
@@ -73,16 +64,13 @@ public class ArticleService {
         }
     }
 
-    public List<ArticleDto> findByBoardsBoardsId(Long boardsId) {
+
+    public List<ArticleDto> findByBoardsId(Long boardsId) {
         List<ArticleDto> articleList = new ArrayList<>();
 
-        for (Article article : articleRepository.findByBoardsBoardsId(boardsId, Sort.by(Sort.Direction.DESC, "articleId"))) {
+        for (Article article : articleRepository.findByBoardsId(boardsId, Sort.by(Sort.Direction.DESC, "id"))) {
             articleList.add(ArticleDto.fromEntity(article));
-            System.out.println("=============================");
-            System.out.println(ArticleDto.fromEntity(article));
         }
-
         return articleList;
     }
-
 }

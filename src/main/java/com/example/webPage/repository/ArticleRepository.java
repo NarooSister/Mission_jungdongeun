@@ -9,5 +9,5 @@ import java.util.List;
 
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-    List<Article> findByBoardsBoardsId(Long boardsId, Sort sort);
+ List<Article> findByBoardsId(Long boardsId, Sort sort);
 }

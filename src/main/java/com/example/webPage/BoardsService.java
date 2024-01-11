@@ -7,6 +7,7 @@ import com.example.webPage.entity.Boards;
 import com.example.webPage.repository.ArticleRepository;
 import com.example.webPage.repository.BoardsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,37 +17,29 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardsService {
     private final BoardsRepository boardsRepository;
-
-//    //CREATE
-//    public ArticleDto create(ArticleDto dto){
-//        Article article = new Article(
-//                dto.getArticleId(), dto.getTitle(), dto.getContent(), dto.getPassword()
-//        );
-//        return ArticleDto.fromEntity(articleRepository.save(article));
-//    }
-//
-    public List<BoardsDto> readAll(){
+    private final   ArticleRepository articleRepository;
+    public List<BoardsDto> readAll() {
         List<BoardsDto> boardsList = new ArrayList<>();
-        for(Boards boards: boardsRepository.findAll()){
+        for (Boards boards : boardsRepository.findAll()) {
             boardsList.add(BoardsDto.fromEntity(boards));
         }
         return boardsList;
     }
 
-    public BoardsDto read(Long id){
+    public BoardsDto read(Long id) {
         Boards boards = boardsRepository.findById(id).orElseThrow();
         return BoardsDto.fromEntity(boards);
     }
-//
-//    //수정할 때, 비밀번호는 수정 불가함
-//    public ArticleDto update(Long id, ArticleDto dto){
-//        Article article = articleRepository.findById(id).orElseThrow();
-//        article.setTitle(dto.getTitle());
-//        article.setContent(dto.getContent());
-//        return ArticleDto.fromEntity(articleRepository.save(article));
-//    }
-//
-//    public void delete(Long id){
-//        articleRepository.delete(articleRepository.findById(id).orElseThrow());
-//    }
+
+    // 내림차순 정렬
+        public List<ArticleDto> findByBoardsId(Long id) {
+        List<ArticleDto> articleList = new ArrayList<>();
+
+        for (Article article : articleRepository.findByBoardsId(id, Sort.by(Sort.Direction.DESC, "id"))) {
+            articleList.add(ArticleDto.fromEntity(article));
+        }
+        return articleList;
+    }
+
+
 }
