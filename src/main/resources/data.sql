@@ -1,12 +1,12 @@
 -- boards
-INSERT INTO boards (name)
+INSERT INTO board (name)
        VALUES ('전체 게시판'),
        ('자유 게시판'),
        ('개발 게시판'),
        ('일상 게시판'),
        ('사건사고 게시판');
 
-INSERT INTO article (title, content, password, boards_id)
+INSERT INTO article (title, content, password, board_id)
         VALUES ('제목1', '내용1', '1234', 2),
            ('제목2', '내용2', '1234', 3),
            ('제목3', '내용3', '1234', 4),

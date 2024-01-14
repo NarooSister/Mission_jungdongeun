@@ -17,32 +17,19 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     //CREATE
-    public CommentDto create(Long articleId, CommentDto dto) {
-        Article article = articleRepository.findById(articleId)
-                .orElseThrow();
-        Comment comment = new Comment(
-                dto.getContent(), dto.getPassword(), article
-        );
+    public CommentDto createComment(Long articleId, CommentDto dto) {
+        Article article = articleRepository.findById(articleId).orElseThrow();
+        Comment comment = new Comment();
+        comment.setArticle(article);
+        comment.setContent(dto.getContent());
+        comment.setPassword(dto.getPassword());
         return CommentDto.fromEntity(commentRepository.save(comment));
     }
-    //READ
-    public CommentDto read(Long commentId) {
-        return CommentDto.fromEntity(commentRepository.findById(commentId)
-                .orElseThrow());
-    }
 
-    //DELETE
-//    public void delete(Long commentId) {
-//        commentRepository.delete(commentRepository.findById(commentId)
-//                .orElseThrow());
-//    }
-    public void delete(Long id, String password) {
-        Optional<Comment> optionalComment = commentRepository.findById(id);
-        if (optionalComment.isPresent()) {
-            Comment comment = optionalComment.get();
-            if (comment.getPassword().equals(password)) {
+    public void deleteComment(Long id, String password) {
+        Comment comment = commentRepository.findById(id).orElseThrow();
+        if (comment.getPassword().equals(password)) {
                 commentRepository.delete(comment);
-            }
         }
     }
 }

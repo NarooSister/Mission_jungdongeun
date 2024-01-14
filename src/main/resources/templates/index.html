@@ -6,7 +6,6 @@
 </head>
 <body>
 <h1>Home Page</h1>
-<a href="/article/write">Write</a>
 <table>
     <thead>
     <tr>
@@ -15,15 +14,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="boards: ${boards}">
-        <td th:text="${boards.id}"></td>
+    <tr th:each="board: ${boards}">
+        <td th:text="${board.id}"></td>
         <td >
-            <a th:href="@{/boards/{id}(id=${boards.id})}" th:text="${boards.name}"></a>
-            <input type="hidden" name="boardsId" th:value="${boards.id}">
+            <a th:href="@{board/{boardId}(boardId=${board.id})}" th:text="${board.name}"></a>
+<!-- <input type="hidden" name="boardId" th:value="${board.id}">-->
         </td>
-    </tr>
-    <tr>
-        <th></th>
     </tr>
     </tbody>
 </table>

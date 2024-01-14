@@ -21,7 +21,7 @@
 <hr>
 <p th:utext="${article.content}"></p>
 <hr>
-<p><a th:href="@{/boards/{boardsId}(boardsId=${boards.id})}">Back</a> <a th:href="@{/article/{articleId}/update(articleId=${article.id})}">Edit</a></p>
+<p><a th:href="@{/templates/board/{boardsId}(boardsId=${boards.id})}">Back</a> <a th:href="@{/article/{articleId}/update(articleId=${article.id})}">Edit</a></p>
 <hr>
 <form th:action="@{/article/{articleId}/comment(articleId=${article.id})}" method="post">
 

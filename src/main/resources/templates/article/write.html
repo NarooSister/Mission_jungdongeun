@@ -10,7 +10,7 @@
     <a href="/">Back</a>
 </div>
 <hr>
-<form th:action="@{/article/{articleId}(articleId=${article.id})}" name="articleId" method="post">
+<form th:action="/write"  method="post">
     <input type="hidden" name="articleId" th:value="${article.id}">
     <div>
         <label for="title-input">Title</label>

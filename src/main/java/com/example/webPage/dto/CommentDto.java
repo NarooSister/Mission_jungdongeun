@@ -18,7 +18,6 @@ public class CommentDto {
         CommentDto dto = new CommentDto();
         dto.id = entity.getId();
         dto.content = entity.getContent();
-        dto.password = entity.getPassword();
         return dto;
     }
 }

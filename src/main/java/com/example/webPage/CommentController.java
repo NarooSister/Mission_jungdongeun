@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 @RequestMapping("article/{articleId}/comment")
 public class CommentController {
-    private final ArticleService articleService;
+
     private final CommentService commentService;
 
     //CREATE
     @PostMapping
-    public String create(
+    public String createComment(
             @PathVariable("articleId")
             Long articleId,
             @RequestParam("content")
@@ -26,22 +26,14 @@ public class CommentController {
             @RequestParam("password")
             String password
     ) {
-        commentService.create(articleId, new CommentDto(content, password));
+        commentService.createComment(articleId, new CommentDto(content, password));
         return String.format("redirect:/article/%d", articleId);
     }
-    //DELETE
-//    @PostMapping("{commentId}/delete")
-//    public String delete(
-//            @PathVariable("articleId")
-//            Long articleId,
-//            @PathVariable("commentId")
-//            Long commentId
-//    ) {
-//        commentService.delete(commentId);
-//        return String.format("redirect:/article/%d", articleId);
-//    }
 
-    // 삭제 페이지 이동
+
+    /*
+    // 삭제 페이지 이동해서 삭제하기
+    // 댓글 옆에서 비밀번호 입력 후 바로 삭제하는 것으로 단순화함
     @PostMapping("deleteComment")
     public String commentPassword(
             Long commentId,
@@ -51,18 +43,18 @@ public class CommentController {
         model.addAttribute("commentId", commentId);
         model.addAttribute("articleId", articleId);
         return "article/deleteComment";
-    }
+    }*/
 
     //비밀번호 확인 후 삭제
-    @PostMapping("{commentId}/deleteComment")
+    @PostMapping("{commentId}/delete")
     public String commentDelete(
             @PathVariable("commentId") Long commentId,
             @PathVariable("articleId") Long articleId,
             @RequestParam("password") String password
     ) {
         // 비밀번호 확인 후 삭제
-        commentService.delete(commentId, password);
-        return "redirect:/article/{articleId}";
+        commentService.deleteComment(commentId, password);
+        return String.format("redirect:/article/%d", articleId);
     }
 
 }

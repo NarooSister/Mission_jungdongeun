@@ -9,6 +9,14 @@
 
 진행기간: 24.01.08 ~ 24.01.11
 
+<details>
+<summary>ERD</summary>
+<div markdown="1">
+
+![erd](./img/webPageErd.png)
+
+</div>
+</details>
 
 ## 필수 요구사항 구현
 ### 1. 게시판 기능

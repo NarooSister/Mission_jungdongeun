@@ -3,10 +3,14 @@ package com.example.webPage.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Objects;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +24,16 @@ public class Comment {
     @ManyToOne
     private Article article;
 
-    public Comment() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return Objects.equals(id, comment.id) && Objects.equals(content, comment.content) && Objects.equals(password, comment.password);
     }
-    public Comment(String content, String password, Article article) {
-        this.content = content;
-        this.password = password;
-        this.article = article;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, content, password);
     }
 }
